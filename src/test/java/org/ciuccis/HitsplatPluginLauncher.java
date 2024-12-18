@@ -1,13 +1,14 @@
-package com.example;
+package org.ciuccis;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
-public class ExamplePluginTest
+public class HitsplatPluginLauncher
 {
 	public static void main(String[] args) throws Exception
 	{
-		ExternalPluginManager.loadBuiltin(ExamplePlugin.class);
+		assert(true);
+		ExternalPluginManager.loadBuiltin(HitsplatPlugin.class);
 		RuneLite.main(args);
 	}
 }
