@@ -1,9 +1,9 @@
-package com.extendedhitsplats.utils;
+package org.ciuccis.hitsplat.utils;
 
-import net.runelite.api.Actor;
 import net.runelite.api.Hitsplat;
 
-public class ManagedHitsplat {
+public class ManagedHitsplat
+{
     public Hitsplat hitsplat;
     public int position;
 
