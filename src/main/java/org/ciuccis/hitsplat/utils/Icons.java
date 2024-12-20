@@ -5,8 +5,13 @@ import net.runelite.client.util.ImageUtil;
 import org.ciuccis.hitsplat.HitsplatPlugin;
 
 public class Icons {
-	// osrs hitsplats
+
 	private static final Class<?> PLUGIN_CLASS = HitsplatPlugin.class;
+	// custom hitsplats
+	public static final ImageIcon CUSTOM_MELEE_HITSPLAT = new ImageIcon(ImageUtil.loadImageResource(PLUGIN_CLASS, "/hitsplats/melee_hitsplat.png"));
+	public static final ImageIcon CUSTOM_RANGED_HITSPLAT = new ImageIcon(ImageUtil.loadImageResource(PLUGIN_CLASS, "/hitsplats/ranged_hitsplat.png"));
+	public static final ImageIcon CUSTOM_MAGIC_HITSPLAT = new ImageIcon(ImageUtil.loadImageResource(PLUGIN_CLASS, "/hitsplats/magic_hitsplat.png"));
+	// osrs hitsplats
 	public static final ImageIcon OSRS_BIG_HITSPLAT = new ImageIcon(ImageUtil.loadImageResource(PLUGIN_CLASS, "/hitsplats/big_hitsplat.png"));
 	public static final ImageIcon OSRS_ALT_CHARGE_HITSPLAT = new ImageIcon(ImageUtil.loadImageResource(PLUGIN_CLASS, "/hitsplats/alt_charge_hitsplat.png"));
 	public static final ImageIcon OSRS_ALT_UNCHARGE_HITSPLAT = new ImageIcon(ImageUtil.loadImageResource(PLUGIN_CLASS, "/hitsplats/alt_uncharge_hitsplat.png"));

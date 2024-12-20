@@ -31,7 +31,7 @@ public class HitsplatManager {
 	}
 
 
-	public static void add(HitsplatApplied hitsplatApplied, Hitsplat override)
+	public static void add(HitsplatApplied hitsplatApplied, DamageType damageType, Hitsplat override)
 	{
 		Actor actor = hitsplatApplied.getActor();
 		Hitsplat hitsplat;
@@ -53,7 +53,7 @@ public class HitsplatManager {
 			hitsplatList.put(actor, new CopyOnWriteArrayList<ManagedHitsplat>());
 		}
 
-		ManagedHitsplat managedHitsplat = new ManagedHitsplat(hitsplat, position);
+		ManagedHitsplat managedHitsplat = new ManagedHitsplat(hitsplat, position, damageType);
 		hitsplatList.get(actor).add(managedHitsplat);
 	}
 

@@ -23,6 +23,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
+import org.ciuccis.hitsplat.utils.DamageType;
 import org.ciuccis.hitsplat.utils.HitsplatCoordinates;
 import org.ciuccis.hitsplat.utils.HitsplatManager;
 import org.ciuccis.hitsplat.utils.Icons;
@@ -63,9 +64,10 @@ public class HitsplatOverlay extends Overlay
 			Hitsplat hitsplat = managedHitsplat.hitsplat;
 			int damage = hitsplat.getAmount();
 			int hitsplatType = hitsplat.getHitsplatType();
+			DamageType damageType = managedHitsplat.damageType;
 
 
-			BufferedImage hitsplatImage = drawHitsplat(hitsplatType, damage, FontManager.getRunescapeSmallFont(), position);
+			BufferedImage hitsplatImage = drawHitsplat(hitsplatType, damage, FontManager.getRunescapeSmallFont(), position, damageType);
 			Point cPoint = actor.getCanvasImageLocation(hitsplatImage, actor.getLogicalHeight()/2);
 
 			if (cPoint == null){
@@ -78,116 +80,131 @@ public class HitsplatOverlay extends Overlay
 		}
 	}
 
-	private BufferedImage drawHitsplat(int hitsplat_type, int damage, Font font, int position){
+	private BufferedImage drawHitsplat(int hitsplatType, int damage, Font font, int position, DamageType damageType){
 		ImageIcon hitIcon;
-//		hitIcon = Icons.OSRS_MAX_HITSPLAT;
-		switch (hitsplat_type){
-			case HitsplatID.BLEED:
-				hitIcon = Icons.OSRS_BLEED_HITSPLAT;
+		switch (damageType) {
+			case MELEE:
+				hitIcon = Icons.CUSTOM_MELEE_HITSPLAT;
 				break;
-			case HitsplatID.BURN:
-				hitIcon = Icons.OSRS_BURN_HITSPLAT;
+			case RANGED:
+				hitIcon = Icons.CUSTOM_RANGED_HITSPLAT;
 				break;
-			case HitsplatID.BLOCK_ME:
-				hitIcon = Icons.OSRS_SELF_MISS_HITSPLAT;
+			case MAGIC:
+				hitIcon = Icons.CUSTOM_MAGIC_HITSPLAT;
 				break;
-			case HitsplatID.BLOCK_OTHER:
-				hitIcon = Icons.OSRS_OTHER_MISS_HITSPLAT;
-				break;
-			case HitsplatID.CORRUPTION:
-				hitIcon = Icons.OSRS_CORRUPTION_HITSPLAT;
-				break;
-			case HitsplatID.CYAN_DOWN:
-				hitIcon = Icons.OSRS_ALT_UNCHARGE_HITSPLAT;
-				break;
-			case HitsplatID.CYAN_UP:
-				hitIcon = Icons.OSRS_ALT_CHARGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_MAX_ME:
-				hitIcon = Icons.OSRS_MAX_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_MAX_ME_CYAN:
-				hitIcon = Icons.OSRS_MAX_SHIELD_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_MAX_ME_ORANGE:
-				hitIcon = Icons.OSRS_MAX_ARMOUR_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_MAX_ME_POISE:
-				hitIcon = Icons.OSRS_MAX_POISE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_MAX_ME_WHITE:
-				hitIcon = Icons.OSRS_MAX_UNCHARGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_MAX_ME_YELLOW:
-				hitIcon = Icons.OSRS_MAX_CHARGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_ME:
+			case TYPELESS:
 				hitIcon = Icons.OSRS_SELF_DAMAGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_ME_CYAN:
-				hitIcon = Icons.OSRS_SELF_SHIELD_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_ME_ORANGE:
-				hitIcon = Icons.OSRS_SELF_ARMOUR_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_ME_POISE:
-				hitIcon = Icons.OSRS_SELF_POISE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_ME_WHITE:
-				hitIcon = Icons.OSRS_SELF_UNCHARGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_ME_YELLOW:
-				hitIcon = Icons.OSRS_SELF_CHARGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_OTHER:
-				hitIcon = Icons.OSRS_OTHER_DAMAGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_OTHER_CYAN:
-				hitIcon = Icons.OSRS_OTHER_SHIELD_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_OTHER_ORANGE:
-				hitIcon = Icons.OSRS_OTHER_ARMOUR_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_OTHER_POISE:
-				hitIcon = Icons.OSRS_OTHER_POISE_HITSPLAT;
-				break;
-			// Does not exist, defaulting to self for future support
-			case HitsplatID.DAMAGE_OTHER_WHITE:
-				hitIcon = Icons.OSRS_SELF_UNCHARGE_HITSPLAT;
-				break;
-			case HitsplatID.DAMAGE_OTHER_YELLOW:
-				hitIcon = Icons.OSRS_OTHER_CHARGE_HITSPLAT;
-				break;
-			case HitsplatID.DISEASE:
-				hitIcon = Icons.OSRS_DISEASE_HITSPLAT;
-				break;
-			case HitsplatID.DOOM:
-				hitIcon = Icons.OSRS_DOOM_HITSPLAT;
-				break;
-			case HitsplatID.HEAL:
-				hitIcon = Icons.OSRS_HEAL_HITSPLAT;
-				break;
-			case HitsplatID.POISON:
-				hitIcon = Icons.OSRS_POISON_HITSPLAT;
-				break;
-			case HitsplatID.PRAYER_DRAIN:
-				hitIcon = Icons.OSRS_PRAYER_DRAIN_HITSPLAT;
-				break;
-			case HitsplatID.SANITY_DRAIN:
-				hitIcon = Icons.OSRS_SANITY_DRAIN_HITSPLAT;
-				break;
-			case HitsplatID.SANITY_RESTORE:
-				hitIcon = Icons.OSRS_SANITY_RESTORE_HITSPLAT;
-				break;
-			case HitsplatID.VENOM:
-				hitIcon = Icons.OSRS_VENOM_HITSPLAT;
-				break;
-			case -1:
-				hitIcon = Icons.OSRS_BIG_HITSPLAT;
 				break;
 			default:
 				return new BufferedImage(0,0,0);
 		}
+//		switch (hitsplatType) {
+//			case HitsplatID.BLEED:
+//				hitIcon = Icons.OSRS_BLEED_HITSPLAT;
+//				break;
+//			case HitsplatID.BURN:
+//				hitIcon = Icons.OSRS_BURN_HITSPLAT;
+//				break;
+//			case HitsplatID.BLOCK_ME:
+//				hitIcon = Icons.OSRS_SELF_MISS_HITSPLAT;
+//				break;
+//			case HitsplatID.BLOCK_OTHER:
+//				hitIcon = Icons.OSRS_OTHER_MISS_HITSPLAT;
+//				break;
+//			case HitsplatID.CORRUPTION:
+//				hitIcon = Icons.OSRS_CORRUPTION_HITSPLAT;
+//				break;
+//			case HitsplatID.CYAN_DOWN:
+//				hitIcon = Icons.OSRS_ALT_UNCHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.CYAN_UP:
+//				hitIcon = Icons.OSRS_ALT_CHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_MAX_ME:
+//				hitIcon = Icons.OSRS_MAX_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_MAX_ME_CYAN:
+//				hitIcon = Icons.OSRS_MAX_SHIELD_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_MAX_ME_ORANGE:
+//				hitIcon = Icons.OSRS_MAX_ARMOUR_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_MAX_ME_POISE:
+//				hitIcon = Icons.OSRS_MAX_POISE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_MAX_ME_WHITE:
+//				hitIcon = Icons.OSRS_MAX_UNCHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_MAX_ME_YELLOW:
+//				hitIcon = Icons.OSRS_MAX_CHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_ME:
+//				hitIcon = Icons.OSRS_SELF_DAMAGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_ME_CYAN:
+//				hitIcon = Icons.OSRS_SELF_SHIELD_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_ME_ORANGE:
+//				hitIcon = Icons.OSRS_SELF_ARMOUR_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_ME_POISE:
+//				hitIcon = Icons.OSRS_SELF_POISE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_ME_WHITE:
+//				hitIcon = Icons.OSRS_SELF_UNCHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_ME_YELLOW:
+//				hitIcon = Icons.OSRS_SELF_CHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_OTHER:
+//				hitIcon = Icons.OSRS_OTHER_DAMAGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_OTHER_CYAN:
+//				hitIcon = Icons.OSRS_OTHER_SHIELD_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_OTHER_ORANGE:
+//				hitIcon = Icons.OSRS_OTHER_ARMOUR_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_OTHER_POISE:
+//				hitIcon = Icons.OSRS_OTHER_POISE_HITSPLAT;
+//				break;
+//			// Does not exist, defaulting to self for future support
+//			case HitsplatID.DAMAGE_OTHER_WHITE:
+//				hitIcon = Icons.OSRS_SELF_UNCHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DAMAGE_OTHER_YELLOW:
+//				hitIcon = Icons.OSRS_OTHER_CHARGE_HITSPLAT;
+//				break;
+//			case HitsplatID.DISEASE:
+//				hitIcon = Icons.OSRS_DISEASE_HITSPLAT;
+//				break;
+//			case HitsplatID.DOOM:
+//				hitIcon = Icons.OSRS_DOOM_HITSPLAT;
+//				break;
+//			case HitsplatID.HEAL:
+//				hitIcon = Icons.OSRS_HEAL_HITSPLAT;
+//				break;
+//			case HitsplatID.POISON:
+//				hitIcon = Icons.OSRS_POISON_HITSPLAT;
+//				break;
+//			case HitsplatID.PRAYER_DRAIN:
+//				hitIcon = Icons.OSRS_PRAYER_DRAIN_HITSPLAT;
+//				break;
+//			case HitsplatID.SANITY_DRAIN:
+//				hitIcon = Icons.OSRS_SANITY_DRAIN_HITSPLAT;
+//				break;
+//			case HitsplatID.SANITY_RESTORE:
+//				hitIcon = Icons.OSRS_SANITY_RESTORE_HITSPLAT;
+//				break;
+//			case HitsplatID.VENOM:
+//				hitIcon = Icons.OSRS_VENOM_HITSPLAT;
+//				break;
+//			case -1:
+//				hitIcon = Icons.OSRS_BIG_HITSPLAT;
+//				break;
+//			default:
+//				return new BufferedImage(0,0,0);
+//		}
 		BufferedImage bi = iconToBuffered(hitIcon);
 		Graphics g = bi.getGraphics();
 		bi = drawCenteredDamageNumbers(g, String.valueOf(damage), bi, font);

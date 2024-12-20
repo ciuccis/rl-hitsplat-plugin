@@ -4,21 +4,10 @@ import java.awt.Color;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("example")
+@ConfigGroup("hitsplatColors")
 public interface HitsplatConfig extends net.runelite.client.config.Config
 {
 	@ConfigItem(
-		keyName = "asdf",
-		name = "Beep Beep",
-		description = "I'm a sheep"
-	)
-	default String greeting()
-	{
-		return "Boop Boop";
-	}
-
-	@ConfigItem(
-		position = 4,
 		keyName = "meleeColorConfig",
 		name = "Melee Hitsplat Color",
 		description = "Color of Melee hitsplats"
@@ -26,7 +15,6 @@ public interface HitsplatConfig extends net.runelite.client.config.Config
 	default Color meleeColorConfig() { return Color.RED; }
 
 	@ConfigItem(
-		position = 4,
 		keyName = "rangedColorConfig",
 		name = "Ranged Hitsplat Color",
 		description = "Color of Ranged hitsplats"
@@ -34,7 +22,6 @@ public interface HitsplatConfig extends net.runelite.client.config.Config
 	default Color rangedColorConfig() { return Color.GREEN; }
 
 	@ConfigItem(
-		position = 4,
 		keyName = "magicColorConfig",
 		name = "Magic Hitsplat Color",
 		description = "Color of Magic hitsplats"

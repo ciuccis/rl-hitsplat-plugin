@@ -27,6 +27,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.ciuccis.hitsplat.overlays.HitsplatOverlay;
+import org.ciuccis.hitsplat.utils.DamageType;
 import org.ciuccis.hitsplat.utils.HitsplatManager;
 import org.ciuccis.hitsplat.utils.ManagedHitsplat;
 import org.ciuccis.hitsplat.utils.Sprites;
@@ -56,7 +57,6 @@ public class HitsplatPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Hitsplat Plugin started!");
 		overlayManager.add(overlay);
 		if (overrides[0] == null) {
 			for (int i = 0; i < Sprites.ALL_SPRITES.length; i++) {
@@ -80,7 +80,6 @@ public class HitsplatPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("Hitsplat Plugin stopped!");
 		overlayManager.remove(overlay);
 		spriteManager.removeSpriteOverrides(overrides);
 	}
@@ -88,10 +87,6 @@ public class HitsplatPlugin extends Plugin
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
-		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "baa", null);
-		}
 	}
 	@Subscribe
 	public void onGameTick(GameTick tick) {
@@ -126,10 +121,8 @@ public class HitsplatPlugin extends Plugin
 	@Subscribe
 	public void onCommandExecuted(CommandExecuted commandExecuted) {
 		if (commandExecuted.getCommand().equals("skullme")) {
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Plugin: " + String.valueOf(client.getLocalPlayer().getCombatLevel()), null);
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Skulled", null);
 			client.getLocalPlayer().setSkullIcon(1);
-			int[] ids = client.getLocalPlayer().getPlayerComposition().getEquipmentIds();
-			log.info(ids.toString());
 		}
 
 	}
@@ -139,7 +132,7 @@ public class HitsplatPlugin extends Plugin
 		Hitsplat hitsplat = hitsplatApplied.getHitsplat();
 		Hitsplat override = null; // new Hitsplat(hitsplat.getHitsplatType(), 420 ,hitsplat.getDisappearsOnGameCycle());
 
-		HitsplatManager.add(hitsplatApplied, override);
+		HitsplatManager.add(hitsplatApplied, DamageType.MAGIC, override);
 	}
 
 
