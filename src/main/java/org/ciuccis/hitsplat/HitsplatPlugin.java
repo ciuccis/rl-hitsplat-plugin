@@ -34,7 +34,7 @@ import org.ciuccis.hitsplat.utils.Sprites;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Hitsplat Recoloring"
+	name = "Typed Hitsplats"
 )
 public class HitsplatPlugin extends Plugin
 {
