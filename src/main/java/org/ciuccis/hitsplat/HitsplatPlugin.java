@@ -69,7 +69,7 @@ public class HitsplatPlugin extends Plugin
 
 					@Override
 					public String getFileName() {
-						return "/com/hitsplats/blank.png";
+						return "/hitsplats/blank.png";
 					}
 				};
 			}
@@ -131,7 +131,7 @@ public class HitsplatPlugin extends Plugin
 	public void onHitsplatApplied(HitsplatApplied hitsplatApplied) {
 		Hitsplat hitsplat = hitsplatApplied.getHitsplat();
 		Hitsplat override = null; // new Hitsplat(hitsplat.getHitsplatType(), 420 ,hitsplat.getDisappearsOnGameCycle());
-
+		log.info("Hitsplat applied to {}", hitsplatApplied.getActor().getName());
 		HitsplatManager.add(hitsplatApplied, DamageType.MAGIC, override);
 	}
 
